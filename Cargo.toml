@@ -2,7 +2,7 @@
 name = "qe_actix"
 version = "0.1.0"
 edition = "2024"
-exclude = ["/talend_api_tester"]
+exclude = ["/talend_api_tester", "/tests"]
 
 [dependencies]
 actix-web = "4.11.0"
