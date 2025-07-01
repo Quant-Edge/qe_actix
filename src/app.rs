@@ -8,7 +8,7 @@ use binance_sdk::config::ConfigurationRestApi;
 use binance_sdk::derivatives_trading_usds_futures::DerivativesTradingUsdsFuturesRestApi;
 use binance_sdk::derivatives_trading_usds_futures::rest_api::RestApi;
 
-use crate::handler::derivatives_trading_usds_futures::get::account_information;
+use crate::handler::derivatives_trading_usds_futures::get::{account_information, futures_account_balance};
 use crate::handler::{echo, health_check, index, manual_hello};
 
 use std::collections::HashMap;
@@ -113,6 +113,7 @@ pub async fn run() -> std::io::Result<()> {
             .service(health_check)
             .service(echo)
             .service(account_information)
+            .service(futures_account_balance)
             .route("/hey", web::get().to(manual_hello))
     })
     .bind((config.server.host, config.server.port))?
