@@ -1,0 +1,59 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "5e6581bd-2b52-428b-a5a7-f5c69abf35b3",
+        "name": "qe_actix"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": [
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "were",
+                    "value": "aaa"
+                  }
+                ]
+              },
+              "bodyType": "Form"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "key",
+                    "value": "sub1"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:38000",
+              "path": "/account_information"
+            },
+            "id": "7c3656dc-2c86-479c-93c2-c333be50d105",
+            "name": "account_information",
+            "headers": []
+          }
+        }
+      ]
+    }
+  ]
+}
