@@ -91,7 +91,52 @@
                 "version": "V11"
               },
               "host": "localhost:38000",
-              "path": "/account_information"
+              "path": "/futures_account_balance"
+            },
+            "id": "2da0bd8a-e726-4dfd-9b85-543770d9c801",
+            "name": "change_position_mode",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": [
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "were",
+                    "value": "aaa"
+                  }
+                ]
+              },
+              "bodyType": "Form"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "key",
+                    "value": "sub1"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:38000",
+              "path": "/futures_account_balance"
             },
             "id": "f628d5be-07f9-4e9f-a945-f8a9fa330f15",
             "name": "futures_account_balance",
