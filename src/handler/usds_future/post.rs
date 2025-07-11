@@ -68,7 +68,7 @@ impl From<KlineCandlestickDataParamsWrapper> for KlineCandlestickDataParams {
 async fn kline(
     data: web::Data<AppState>,
     query: Query<KeyName>,
-    param: web::Path<KlineCandlestickDataParamsWrapper>,
+    param: web::Form<KlineCandlestickDataParamsWrapper>,
 ) -> Result<HttpResponse, actix_web::Error> {
     /*
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Kline-Candlestick-Data
@@ -81,7 +81,7 @@ async fn kline(
 
     // 设置 API 参数
     let params =
-        rest_api::KlineCandlestickDataParams::builder(param.symbol, param.interval)
+        rest_api::KlineCandlestickDataParams::builder(param.symbol.clone(), param.interval.clone())
             .build()
             .unwrap();
 

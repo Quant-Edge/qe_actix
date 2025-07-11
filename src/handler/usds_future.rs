@@ -8,6 +8,7 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
         web::scope("/usds_future")
             .service(get::account_information)
             .service(get::account_balance)
-            .service(post::change_position_mode),
+            .service(post::change_position_mode)
+            .service(post::kline),
     );
 }

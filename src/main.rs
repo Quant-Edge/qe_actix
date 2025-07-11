@@ -1,6 +1,7 @@
 mod app;
 mod handler;
 mod common;
+mod config;
 
 use crate::app::run;
 
