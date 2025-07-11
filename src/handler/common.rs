@@ -9,7 +9,7 @@ pub fn get_client_from_state(
     key_name: &str,
 ) -> Result<RestApi, actix_web::Error> {
     // 直接从应用状态获取 rest_clients
-    let rest_clients = data.rest_clients.clone();
+    let rest_clients = data.rest_usds_future_clients.clone();
 
     // 使用 let 绑定延长锁的生命周期
     let locked_clients = rest_clients.lock().unwrap();

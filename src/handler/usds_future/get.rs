@@ -34,8 +34,8 @@ async fn account_information(
     Ok(HttpResponse::Ok().json(data))
 }
 
-#[get("/futures_account_balance")]
-async fn futures_account_balance(
+#[get("/account_balance")]
+async fn account_balance(
     data: web::Data<AppState>,
     query: Query<KeyName>,
 ) -> Result<HttpResponse, actix_web::Error> {

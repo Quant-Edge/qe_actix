@@ -1,6 +1,6 @@
 use actix_web::{HttpResponse, Responder, get, post};
 
-pub mod derivatives_trading_usds_futures;
+pub mod usds_future;
 pub mod common;
 
 #[get("/")]
@@ -18,9 +18,6 @@ async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
 }
 
-pub async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
-}
 
 #[cfg(test)]
 mod tests {

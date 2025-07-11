@@ -8,11 +8,8 @@ use binance_sdk::config::ConfigurationRestApi;
 use binance_sdk::derivatives_trading_usds_futures::DerivativesTradingUsdsFuturesRestApi;
 use binance_sdk::derivatives_trading_usds_futures::rest_api::RestApi;
 
-use crate::handler::derivatives_trading_usds_futures::get::{
-    account_information, futures_account_balance,
-};
-use crate::handler::derivatives_trading_usds_futures::post::change_position_mode;
-use crate::handler::{echo, health_check, index, manual_hello};
+use crate::handler::usds_future;
+use crate::handler::{echo, health_check, index};
 
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
@@ -37,7 +34,7 @@ pub struct Key {
 
 // 新增全局的 REST API 客户端类型定义
 pub struct AppState {
-    pub rest_clients: Arc<Mutex<HashMap<String, RestApi>>>,
+    pub rest_usds_future_clients: Arc<Mutex<HashMap<String, RestApi>>>,
 }
 
 fn load_config() -> Result<AppConfig, config::ConfigError> {
@@ -56,7 +53,7 @@ fn load_keys() -> Result<HashMap<String, Key>, config::ConfigError> {
     keys.try_deserialize()
 }
 
-pub fn init_rest_clients(
+pub fn init_rest_usds_future_clients(
     keys: &HashMap<String, Key>,
 ) -> Result<Arc<Mutex<HashMap<String, RestApi>>>, std::io::Error> {
     // 初始化一个 HashMap 来存储每个 key 对应的 rest_client
@@ -99,7 +96,7 @@ pub async fn run() -> std::io::Result<()> {
         std::io::Error::new(std::io::ErrorKind::Other, format!("Keys error: {}", e))
     })?;
 
-    let rest_clients = init_rest_clients(&keys)?;
+    let rest_clients = init_rest_usds_future_clients(&keys)?;
 
     info!(
         "Starting server at {}:{}",
@@ -110,15 +107,12 @@ pub async fn run() -> std::io::Result<()> {
         App::new()
             // 将 keys 和 rest_clients 一起添加到应用状态
             .app_data(web::Data::new(AppState {
-                rest_clients: rest_clients.clone(),
+                rest_usds_future_clients: rest_clients.clone(),
             }))
             .service(index)
             .service(health_check)
             .service(echo)
-            .service(account_information)
-            .service(futures_account_balance)
-            .service(change_position_mode)
-            .route("/hey", web::get().to(manual_hello))
+            .configure(usds_future::routes)
     })
     .bind((config.server.host, config.server.port))?
     .run()
