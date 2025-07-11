@@ -79,15 +79,9 @@ async fn kline(
     // 调用辅助函数获取客户端
     let client = get_client_from_state(&data, &query.key)?;
 
-    // 设置 API 参数
-    let params =
-        rest_api::KlineCandlestickDataParams::builder(param.symbol.clone(), param.interval.clone())
-            .build()
-            .unwrap();
-
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
     let response = client
-        .kline_candlestick_data(params)
+        .kline_candlestick_data(param.into_inner().into())
         .await
         .map_err(|e| {
             error!("change_position_mode: {}", e);
