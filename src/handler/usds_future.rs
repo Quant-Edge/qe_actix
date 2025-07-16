@@ -9,6 +9,7 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
             .service(get::account_information)
             .service(get::account_balance)
             .service(post::change_position_mode)
-            .service(post::kline),
+            .service(post::kline)
+            .service(post::new_order),
     );
 }

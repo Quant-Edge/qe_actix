@@ -320,6 +320,81 @@
                   }
                 ]
               }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "symbol",
+                        "value": "1000BONKUSDT"
+                      },
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "side",
+                        "value": "BUY"
+                      },
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "type",
+                        "value": "MARKET"
+                      },
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "quantity",
+                        "value": "200"
+                      },
+                      {
+                        "type": "Text",
+                        "name": "price",
+                        "value": "5"
+                      }
+                    ]
+                  },
+                  "bodyType": "Form"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "name": "key",
+                        "value": "sub1"
+                      }
+                    ]
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:38000",
+                  "path": "/usds_future/new_order"
+                },
+                "id": "e695a5c5-fee6-496d-8430-c97f1cf6bc60",
+                "name": "new_order",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ]
+              }
             }
           ]
         }

@@ -1837,6 +1837,7 @@ dependencies = [
  "binance-sdk",
  "config",
  "openssl",
+ "rust_decimal",
  "serde",
  "serde_json",
  "toml",
