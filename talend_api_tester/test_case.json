@@ -19,6 +19,51 @@
               "entity": {
                 "type": "Request",
                 "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "were",
+                        "value": "aaa"
+                      }
+                    ]
+                  },
+                  "bodyType": "Form"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "name": "key",
+                        "value": "sub1"
+                      }
+                    ]
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:38000",
+                  "path": "/spot/exchange_information"
+                },
+                "id": "6334fc5a-4e83-4766-9641-47ea4839a458",
+                "name": "exchange_information",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
                   "requestBody": true,
                   "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
                   "name": "POST"
@@ -284,7 +329,7 @@
                     "version": "V11"
                   },
                   "host": "localhost:38000",
-                  "path": "/usds_future/account_information"
+                  "path": "/usds_future/exchange_information"
                 },
                 "id": "7d4240a0-94b7-477a-a0c0-a33e2c95fc40",
                 "name": "exchange_information",
