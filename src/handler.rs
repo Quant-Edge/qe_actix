@@ -1,7 +1,8 @@
 use actix_web::{HttpResponse, Responder, get, post};
 
 pub mod usds_future;
-pub mod common;
+pub mod spot;
+mod common;
 
 #[get("/")]
 async fn index() -> impl Responder {

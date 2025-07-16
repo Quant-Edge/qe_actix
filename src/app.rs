@@ -8,11 +8,14 @@ use tracing::info;
 use tracing_subscriber::fmt;
 
 use binance_sdk::config::ConfigurationRestApi;
+use binance_sdk::derivatives_trading_usds_futures;
 use binance_sdk::derivatives_trading_usds_futures::DerivativesTradingUsdsFuturesRestApi;
-use binance_sdk::derivatives_trading_usds_futures::rest_api::RestApi;
+use binance_sdk::spot;
+use binance_sdk::spot::SpotRestApi;
 
 use crate::config::{AppConfig, load_config};
-use crate::handler::usds_future;
+use crate::handler::usds_future as usds_future_handler;
+use crate::handler::spot as sport_handler;
 use crate::handler::{echo, health_check, index};
 
 #[derive(Debug, Clone, Deserialize)]
@@ -24,7 +27,8 @@ pub struct Key {
 
 // 新增全局的 REST API 客户端类型定义
 pub struct AppState {
-    pub rest_usds_future_clients: Arc<Mutex<HashMap<String, RestApi>>>,
+    pub rest_usds_future_clients: Arc<Mutex<HashMap<String, derivatives_trading_usds_futures::rest_api::RestApi>>>,
+    pub rest_spot_clients: Arc<Mutex<HashMap<String, spot::rest_api::RestApi>>>,
 }
 
 fn load_keys() -> Result<HashMap<String, Key>, config::ConfigError> {
@@ -35,10 +39,33 @@ fn load_keys() -> Result<HashMap<String, Key>, config::ConfigError> {
     keys.try_deserialize()
 }
 
-pub fn init_rest_usds_future_clients(
+// 定义 ClientBuilder 特征
+pub trait ClientBuilder {
+    type ApiClient; // 关联类型
+    fn build(conf: ConfigurationRestApi) -> Self::ApiClient;
+}
+
+// 为 USDS 期货客户端实现 ClientBuilder 特征
+impl ClientBuilder for DerivativesTradingUsdsFuturesRestApi {
+    type ApiClient = derivatives_trading_usds_futures::rest_api::RestApi;
+    fn build(conf: ConfigurationRestApi) -> Self::ApiClient {
+        Self::production(conf)
+    }
+}
+
+// 为现货客户端实现 ClientBuilder 特征
+impl ClientBuilder for SpotRestApi {
+    type ApiClient = spot::rest_api::RestApi;
+    fn build(conf: ConfigurationRestApi) -> Self::ApiClient {
+        Self::production(conf)
+    }
+}
+
+// 使用泛型实现 init_rest_clients 函数
+pub fn init_rest_clients<T: ClientBuilder + 'static>(
     keys: &HashMap<String, Key>,
     app_config: &AppConfig,
-) -> Result<Arc<Mutex<HashMap<String, RestApi>>>, std::io::Error> {
+) -> Result<Arc<Mutex<HashMap<String, T::ApiClient>>>, std::io::Error> {
     // 初始化一个 HashMap 来存储每个 key 对应的 rest_client
     let mut rest_clients = HashMap::new();
 
@@ -81,8 +108,9 @@ pub fn init_rest_usds_future_clients(
             }
         };
 
-        // 创建 USDS 期货交易 REST API 客户端
-        let client = DerivativesTradingUsdsFuturesRestApi::production(rest_conf);
+        // 根据 ClientBuilder 特征创建客户端
+        // 根据 ClientBuilder 特征创建客户端
+        let client: T::ApiClient = T::build(rest_conf);
         rest_clients.insert(key_name.clone(), client);
     }
 
@@ -101,7 +129,11 @@ pub async fn run() -> std::io::Result<()> {
         std::io::Error::new(std::io::ErrorKind::Other, format!("Keys error: {}", e))
     })?;
 
-    let rest_clients = init_rest_usds_future_clients(&keys, &config)?;
+    // 初始化 USDS 期货客户端
+    let rest_usds_future_clients =
+        init_rest_clients::<DerivativesTradingUsdsFuturesRestApi>(&keys, &config)?;
+    // 初始化现货客户端
+    let rest_spot_clients = init_rest_clients::<SpotRestApi>(&keys, &config)?;
 
     info!(
         "Starting server at {}:{}",
@@ -110,14 +142,16 @@ pub async fn run() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            // 将 keys 和 rest_clients 一起添加到应用状态
+            // 修改 AppState 字段类型以匹配泛型返回类型
             .app_data(web::Data::new(AppState {
-                rest_usds_future_clients: rest_clients.clone(),
+                rest_usds_future_clients: rest_usds_future_clients.clone(),
+                rest_spot_clients: rest_spot_clients.clone(),
             }))
             .service(index)
             .service(health_check)
             .service(echo)
-            .configure(usds_future::routes)
+            .configure(usds_future_handler::routes)
+            .configure(sport_handler::routes)
     })
     .bind((config.server.host, config.server.port))?
     .run()

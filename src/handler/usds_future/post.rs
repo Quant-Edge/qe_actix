@@ -1,6 +1,7 @@
 use actix_web::{HttpResponse, post, web, web::Query};
+use binance_sdk::derivatives_trading_usds_futures::rest_api;
 use binance_sdk::derivatives_trading_usds_futures::rest_api::{
-    self, KlineCandlestickDataIntervalEnum, KlineCandlestickDataParams
+    KlineCandlestickDataIntervalEnum, KlineCandlestickDataParams,
 };
 use serde::Deserialize;
 use tracing::error;
@@ -21,7 +22,7 @@ async fn change_position_mode(
     param: web::Form<PositionModeParam>,
 ) -> Result<HttpResponse, actix_web::Error> {
     // 调用辅助函数获取客户端
-    let client = get_client_from_state(&data, &query.key)?;
+    let client = get_client_from_state::<rest_api::RestApi>(&data, &query.key)?;
 
     // 设置 API 参数
     let params = rest_api::ChangePositionModeParams::builder(param.mode.clone())
@@ -77,7 +78,7 @@ async fn kline(
     */
 
     // 调用辅助函数获取客户端
-    let client = get_client_from_state(&data, &query.key)?;
+    let client = get_client_from_state::<rest_api::RestApi>(&data, &query.key)?;
 
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
     let response = client

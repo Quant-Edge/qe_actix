@@ -9,12 +9,12 @@ use crate::handler::common::get_client_from_state;
 
 
 #[get("/account_information")]
-async fn account_information(
+pub async fn account_information(
     data: web::Data<AppState>,
     query: Query<KeyName>,
 ) -> Result<HttpResponse, actix_web::Error> {
     // 调用辅助函数获取客户端
-    let client = get_client_from_state(&data, &query.key)?;
+    let client = get_client_from_state::<rest_api::RestApi>(&data, &query.key)?;
 
     // 设置 API 参数
     let params = rest_api::AccountInformationV3Params::default();
@@ -35,12 +35,13 @@ async fn account_information(
 }
 
 #[get("/account_balance")]
-async fn account_balance(
+pub async fn account_balance(
     data: web::Data<AppState>,
     query: Query<KeyName>,
 ) -> Result<HttpResponse, actix_web::Error> {
     // 调用辅助函数获取客户端
-    let client = get_client_from_state(&data, &query.key)?;
+    let client = get_client_from_state::<rest_api::RestApi>(&data, &query.key)?;
+
 
     // 设置 API 参数
     let params = rest_api::FuturesAccountBalanceV3Params::default();
