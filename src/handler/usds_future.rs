@@ -13,6 +13,7 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
             .service(get::position::position_information)
             // POST method
             .service(post::position::change_position_mode)
+            .service(post::leverage::change_initial_leverage)
             .service(post::kline::kline)
             .service(post::order::new_order),
     );
