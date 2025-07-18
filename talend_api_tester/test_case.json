@@ -434,7 +434,7 @@
                         "enabled": true,
                         "type": "Text",
                         "name": "side",
-                        "value": "BUY"
+                        "value": "SELL"
                       },
                       {
                         "enabled": true,
@@ -452,6 +452,12 @@
                         "type": "Text",
                         "name": "price",
                         "value": "5"
+                      },
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "new_order_resp_type",
+                        "value": "ACK"
                       }
                     ]
                   },

@@ -1,6 +1,8 @@
 use actix_web::{HttpResponse, post, web};
 use binance_sdk::{
-    derivatives_trading_usds_futures::rest_api::{self, NewOrderParams, NewOrderSideEnum},
+    derivatives_trading_usds_futures::rest_api::{
+        self, NewOrderNewOrderRespTypeEnum, NewOrderParams, NewOrderSideEnum,
+    },
     spot::rest_api::NewOrderTypeEnum,
 };
 use rust_decimal::Decimal;
@@ -8,6 +10,10 @@ use serde::Deserialize;
 use tracing::error;
 
 use crate::{app::AppState, common::params::KeyName, handler::common::get_client_from_state};
+
+fn default_new_order_resp_type() -> Option<NewOrderNewOrderRespTypeEnum> {
+    Some(NewOrderNewOrderRespTypeEnum::Result)
+}
 
 #[derive(Deserialize)]
 struct NewOrderParamsWrapper {
@@ -17,6 +23,8 @@ struct NewOrderParamsWrapper {
     quantity: Decimal,
     price: Option<Decimal>,
     // time_in_force: Option<String>,
+    #[serde(default = "default_new_order_resp_type")]
+    new_order_resp_type: Option<NewOrderNewOrderRespTypeEnum>,
 }
 
 impl From<NewOrderParamsWrapper> for NewOrderParams {
@@ -36,6 +44,9 @@ impl From<NewOrderParamsWrapper> for NewOrderParams {
         //     builder = builder.time_in_force(time_in_force);
         // }
 
+        if let Some(new_order_resp_type) = wrapper.new_order_resp_type {
+            builder = builder.new_order_resp_type(new_order_resp_type);
+        }
         builder.build().unwrap()
     }
 }
