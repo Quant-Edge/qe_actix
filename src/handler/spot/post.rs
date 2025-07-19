@@ -49,7 +49,7 @@ async fn kline(
         .klines(param.into_inner().into())
         .await
         .map_err(|e| {
-            error!("change_position_mode: {}", e);
+            error!("kline: {}", e);
             actix_web::error::ErrorInternalServerError(e)
         })?;
 

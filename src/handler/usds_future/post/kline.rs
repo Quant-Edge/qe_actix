@@ -47,7 +47,7 @@ async fn kline(
         .kline_candlestick_data(param.into_inner().into())
         .await
         .map_err(|e| {
-            error!("change_position_mode: {}", e);
+            error!("kline: {}", e);
             actix_web::error::ErrorInternalServerError(e)
         })?;
 

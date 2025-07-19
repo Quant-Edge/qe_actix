@@ -31,7 +31,7 @@ async fn exchange_information(
 
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
     let response = client.exchange_info(params).await.map_err(|e| {
-        error!("change_position_mode: {}", e);
+        error!("exchange_information: {}", e);
         actix_web::error::ErrorInternalServerError(e)
     })?;
 

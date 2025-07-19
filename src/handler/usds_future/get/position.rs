@@ -20,7 +20,7 @@ pub async fn position_information(
 
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
     let response = client.position_information_v3(params).await.map_err(|e| {
-        error!("Failed to get account information: {}", e);
+        error!("position_information: {}", e);
         actix_web::error::ErrorInternalServerError(e)
     })?;
 

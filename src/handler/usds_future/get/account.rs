@@ -20,7 +20,7 @@ pub async fn account_information(
 
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
     let response = client.account_information_v3(params).await.map_err(|e| {
-        error!("Failed to get account information: {}", e);
+        error!("account_information: {}", e);
         actix_web::error::ErrorInternalServerError(e)
     })?;
 
@@ -49,7 +49,7 @@ pub async fn account_balance(
         .futures_account_balance_v3(params)
         .await
         .map_err(|e| {
-            error!("futures_account_balance_v3: {}", e);
+            error!("account_balance: {}", e);
             actix_web::error::ErrorInternalServerError(e)
         })?;
 
