@@ -1,6 +1,5 @@
-
 use actix_web::{HttpResponse, post, web, web::Query};
-use binance_sdk::spot::rest_api::{KlinesParams, KlinesIntervalEnum};
+use binance_sdk::spot::rest_api::{KlinesIntervalEnum, KlinesParams};
 use serde::Deserialize;
 use tracing::error;
 use web::Form;
@@ -44,14 +43,12 @@ async fn kline(
     // 调用辅助函数获取客户端
     let client = get_client_from_state::<binance_sdk::spot::rest_api::RestApi>(&data, &query.key)?;
 
+    let param: KlinesParams = param.into_inner().into();
     // 调用 API 方法，替换为实际存在的 get_account_info 方法
-    let response = client
-        .klines(param.into_inner().into())
-        .await
-        .map_err(|e| {
-            error!("kline: {}", e);
-            actix_web::error::ErrorInternalServerError(e)
-        })?;
+    let response = client.klines(param.clone()).await.map_err(|e| {
+        error!("kline - {} {:?}", e, param);
+        actix_web::error::ErrorInternalServerError(e)
+    })?;
 
     let data = response.data().await.map_err(|e| {
         error!("Failed to get data from response: {}", e);
