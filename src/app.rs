@@ -154,6 +154,7 @@ pub async fn run() -> std::io::Result<()> {
             .configure(sport_handler::routes)
     })
     .bind((config.server.host, config.server.port))?
+    // .bind(("[::]:38000"))?
     .run()
     .await
 }
