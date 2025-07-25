@@ -52,7 +52,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/spot/exchange_information"
                 },
                 "id": "6334fc5a-4e83-4766-9641-47ea4839a458",
@@ -121,7 +121,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${bage}:38000",
                   "path": "/spot/kline"
                 },
                 "id": "9ba576d7-5195-4801-a8ee-2938ba0ca3da",
@@ -173,7 +173,7 @@
                       {
                         "enabled": true,
                         "name": "key",
-                        "value": "sub1"
+                        "value": "fangyang_hotmail"
                       }
                     ]
                   },
@@ -181,7 +181,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/account_balance"
                 },
                 "id": "ef4e0c7b-7490-44b7-a090-6a383a84c309",
@@ -218,7 +218,7 @@
                       {
                         "enabled": true,
                         "name": "key",
-                        "value": "sub1"
+                        "value": "fangyang_hotmail"
                       }
                     ]
                   },
@@ -226,7 +226,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/account_information"
                 },
                 "id": "67700845-13e9-4870-a58a-76855e35e2a5",
@@ -278,7 +278,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/change_initial_leverage"
                 },
                 "id": "236e9080-cb9a-4d71-b57f-c93d0056baf3",
@@ -335,7 +335,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/change_position_mode"
                 },
                 "id": "7ba01bfb-4cee-4007-91b2-6a092ddb5c2d",
@@ -386,7 +386,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/exchange_information"
                 },
                 "id": "7d4240a0-94b7-477a-a0c0-a33e2c95fc40",
@@ -455,7 +455,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/kline"
                 },
                 "id": "e67d7918-6007-4eb4-aaa2-4cdd79d16126",
@@ -504,7 +504,7 @@
                         "enabled": true,
                         "type": "Text",
                         "name": "quantity",
-                        "value": "200"
+                        "value": "400"
                       },
                       {
                         "type": "Text",
@@ -515,7 +515,7 @@
                         "enabled": true,
                         "type": "Text",
                         "name": "new_order_resp_type",
-                        "value": "ACK"
+                        "value": "RESULT"
                       }
                     ]
                   },
@@ -536,7 +536,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/new_order"
                 },
                 "id": "e695a5c5-fee6-496d-8430-c97f1cf6bc60",
@@ -587,7 +587,7 @@
                     "name": "http",
                     "version": "V11"
                   },
-                  "host": "localhost:38000",
+                  "host": "${tencent}:38000",
                   "path": "/usds_future/position_information"
                 },
                 "id": "4415961e-382d-4189-bea5-a9ed5a0d84d0",
