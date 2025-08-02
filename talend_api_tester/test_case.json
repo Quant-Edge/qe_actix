@@ -4,14 +4,14 @@
     {
       "entity": {
         "type": "Project",
-        "id": "1bc6c023-7a97-4fbb-bdf4-ddf2bc94f55e",
+        "id": "d53d891f-ae85-42ee-97e9-5f87e3383b6a",
         "name": "qe_actix"
       },
       "children": [
         {
           "entity": {
             "type": "Service",
-            "id": "5e270324-63e8-4c9e-834a-d90ab23fe526",
+            "id": "f2012202-ba85-4344-b5cc-1ba10f9619ef",
             "name": "spot"
           },
           "children": [
@@ -55,7 +55,7 @@
                   "host": "${tencent}:38000",
                   "path": "/spot/exchange_information"
                 },
-                "id": "6334fc5a-4e83-4766-9641-47ea4839a458",
+                "id": "7105a0a4-6fa5-4340-b41b-a91751314905",
                 "name": "exchange_information",
                 "headers": []
               }
@@ -124,7 +124,7 @@
                   "host": "${bage}:38000",
                   "path": "/spot/kline"
                 },
-                "id": "9ba576d7-5195-4801-a8ee-2938ba0ca3da",
+                "id": "b116ad37-c876-4d8c-bf54-de609347206c",
                 "name": "kline",
                 "headers": [
                   {
@@ -140,7 +140,7 @@
         {
           "entity": {
             "type": "Service",
-            "id": "bb1f93e6-e231-4b97-983b-a97d9c1755f8",
+            "id": "8e366cf2-b532-42ec-923a-ddfcfedec943",
             "name": "usds_future"
           },
           "children": [
@@ -184,7 +184,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/account_balance"
                 },
-                "id": "ef4e0c7b-7490-44b7-a090-6a383a84c309",
+                "id": "cb37a4f9-d594-467f-ba43-c2ee64ab5890",
                 "name": "account_balance",
                 "headers": []
               }
@@ -229,7 +229,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/account_information"
                 },
-                "id": "67700845-13e9-4870-a58a-76855e35e2a5",
+                "id": "6b58c6fc-30d8-4c92-887a-5546e00cf34d",
                 "name": "account_information",
                 "headers": []
               }
@@ -281,8 +281,71 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/change_initial_leverage"
                 },
-                "id": "236e9080-cb9a-4d71-b57f-c93d0056baf3",
+                "id": "a190f946-921e-4e10-aec5-6b967d3e5d64",
                 "name": "change_initial_leverage",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "symbol",
+                        "value": "BTCUSDT"
+                      },
+                      {
+                        "enabled": true,
+                        "type": "Text",
+                        "name": "margin_type",
+                        "value": "ISOLATED"
+                      },
+                      {
+                        "type": "Text",
+                        "name": "margin_type",
+                        "value": "CROSSED"
+                      }
+                    ]
+                  },
+                  "bodyType": "Form"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "name": "key",
+                        "value": "binance"
+                      }
+                    ]
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "${localhost}:38000",
+                  "path": "/usds_future/change_margin_type"
+                },
+                "id": "6873c799-4f44-4d2f-99f4-b5cb59ab1edd",
+                "name": "change_margin_type",
                 "headers": [
                   {
                     "enabled": true,
@@ -338,7 +401,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/change_position_mode"
                 },
-                "id": "7ba01bfb-4cee-4007-91b2-6a092ddb5c2d",
+                "id": "a6c988a5-f365-41a7-bbba-61bc5630d649",
                 "name": "change_position_mode",
                 "headers": [
                   {
@@ -389,7 +452,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/exchange_information"
                 },
-                "id": "7d4240a0-94b7-477a-a0c0-a33e2c95fc40",
+                "id": "9d85a932-bf8c-4a1d-9135-107279294c66",
                 "name": "exchange_information",
                 "headers": []
               }
@@ -458,7 +521,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/kline"
                 },
-                "id": "e67d7918-6007-4eb4-aaa2-4cdd79d16126",
+                "id": "32ffb720-37b9-480b-9bbd-1b58b6f1807d",
                 "name": "kline",
                 "headers": [
                   {
@@ -539,7 +602,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/new_order"
                 },
-                "id": "e695a5c5-fee6-496d-8430-c97f1cf6bc60",
+                "id": "63f13537-fdb0-40e7-a34f-a65f86fb7114",
                 "name": "new_order",
                 "headers": [
                   {
@@ -590,7 +653,7 @@
                   "host": "${tencent}:38000",
                   "path": "/usds_future/position_information"
                 },
-                "id": "4415961e-382d-4189-bea5-a9ed5a0d84d0",
+                "id": "7107f49c-2fbb-41a7-928f-f56828797c98",
                 "name": "position_information",
                 "headers": []
               }
@@ -598,6 +661,35 @@
           ]
         }
       ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "23fa9ef6-02ca-4b89-b7b1-8f6d7cdd381e",
+      "name": "global",
+      "variables": {
+        "2f75f918-5d38-44d0-aec3-34d509f62635": {
+          "createdAt": "2025-08-03T01:21:50.785+08:00",
+          "name": "localhost",
+          "value": "127.0.0.1",
+          "enabled": true,
+          "private": false
+        },
+        "596941d4-90a1-4039-9508-bef709ae6e8a": {
+          "createdAt": "2025-08-03T01:22:15.681+08:00",
+          "name": "tencent",
+          "value": "43.153.166.109",
+          "enabled": true,
+          "private": false
+        },
+        "88d5da8e-0eef-4891-9b4b-26256b31582a": {
+          "createdAt": "2025-08-03T01:22:43.109+08:00",
+          "name": "bage",
+          "value": "178.239.125.116",
+          "enabled": true,
+          "private": false
+        }
+      }
     }
   ]
 }
